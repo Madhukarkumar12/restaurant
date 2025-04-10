@@ -2,7 +2,7 @@ import { Minus, Plus } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { Button } from "./ui/button"
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table"
-import { boolean } from "zod"
+// import { boolean } from "zod"
 import { useState } from "react"
 import CheckoutConfirmPage from "./CheckoutConfirmPage"
 
@@ -50,7 +50,7 @@ const Cart = () => {
                         </TableRow>
                     </TableBody>
                     <TableFooter>
-                        <TableRow>
+                        <TableRow className="text-xl font-semibold">
                             <TableCell colSpan={5}>Total</TableCell>
                             <TableCell className="text-right">80</TableCell>
                         </TableRow>

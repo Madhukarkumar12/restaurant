@@ -152,7 +152,7 @@ const MobileNavbar = () => {
             <SquareMenu />
             <span>Menu</span>
           </Link>
-          <Link to='/profile' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
+          <Link to='/admin/restaurant' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
             <UtensilsCrossed />
             <span>Restaurant</span>
           </Link>
