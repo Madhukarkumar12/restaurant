@@ -30,6 +30,19 @@ type MenuItems = {
     quantity:number;
 }
 
+export const getOrders = async (req:Request, res:Response) => {
+    try{
+        const orders = await Order.find({user:req.id}.populate('user').populate('restaurant'));
+        return res.status(200).json({
+            success:true,
+            orders
+        })
+    } catch(error){
+        console.error("Error fetching orders:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 export const createCheckoutSession = async (req:Request, res:Response) => {
     try{
         const checkoutSessionRequest : CheckoutSessionRequest = req.body;
@@ -37,7 +50,7 @@ export const createCheckoutSession = async (req:Request, res:Response) => {
         if(!restaurant){
             return res.status(404).json({ error: "Restaurant not found" });
         }
-        const order = new Order({
+        const order:any = new Order({
             restaurant: restaurant._id,
             user: req._id,
             deliveryDetails: checkoutSessionRequest.deliveryDetails,
@@ -99,3 +112,4 @@ export const createLineItems = (checkoutSessionRequest:CheckoutSessionRequest, m
 
     return lineItems;
 }
+

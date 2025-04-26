@@ -6,6 +6,7 @@ import { Loader2, LockKeyhole, Mail, Phone, User } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { SignupInputState, userSignupSchema } from "@/schema/userSchema";
+import { useUserStore } from "@/store/useUserStore";
 
 // typescript mein type define karne 
 // interface SignupInputState {
@@ -33,12 +34,14 @@ const Signup = () => {
     contact:""
   })
   const[errors, setErrors] = useState<Partial<SignupInputState>>({});
+  // userstore
+  const {signup, loading} = useUserStore();
 
   const changeEventHandler = (e:ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setInput({...input, [name]:value})
   }
-  const loginSubmitHandler = (e:FormEvent)=>{
+  const loginSubmitHandler = async (e:FormEvent)=>{
     e.preventDefault();
     // form validation check start
     const result = userSignupSchema.safeParse(input);
@@ -48,10 +51,11 @@ const Signup = () => {
       return;
     }
     // login api implementation start here...
-    console.log(input);
+    // console.log(input);
+    await signup(input);
   }
 
-  const loading = false;
+  // const loading = false;
   return (
     <div className="flex items-center justify-center min-h-screen">
         <form onSubmit={loginSubmitHandler} className="md:p-8 w-full max-w-md rounded-lg md:border border-gray-200 mx-4">

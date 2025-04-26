@@ -8,15 +8,17 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
+import { useCartStore } from "@/store/useCartStore";
 
 const Navbar = () => {
   const admin = true; // Replace with actual admin check logic
   const loading = false; // Replace with actual loading state logic
+  // const {count, increment} = useCartStore();
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between h-14">
         <Link to="/">
-          <h1 className="font-bold md:font-extrabold text-2xl">MadhukarEats</h1>
+          <h1 className="font-bold md:font-extrabold text-2xl">MadhukarEats </h1>
         </Link>
         <div className="hidden md:flex items-center gap-10">
           <div className="hidden md:flex items-center gap-6">
