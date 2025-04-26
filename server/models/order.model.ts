@@ -55,8 +55,6 @@ const orderSchema = new mongoose.Schema<IOrder>({
         enum:["pending" , "confirmed" , "preparing" , "outfordelivery" , "delivered"],
         required:true
     }
-
-
 }, { timestamps: true });
 
 export const Order = mongoose.model("Order", orderSchema);
