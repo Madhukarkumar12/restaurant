@@ -9,10 +9,12 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { useCartStore } from "@/store/useCartStore";
+import { useUserStore } from "@/store/useUserStore";
 
 const Navbar = () => {
-  const admin = true; // Replace with actual admin check logic
-  const loading = false; // Replace with actual loading state logic
+  const { user, loading, logout } = useUserStore();
+  // const admin = true; // Replace with actual admin check logic
+  // Replace with actual loading state logic
   // const {count, increment} = useCartStore();
   return (
     <div className="max-w-7xl mx-auto">
@@ -27,7 +29,7 @@ const Navbar = () => {
             <Link to="/order/status">Order</Link>
 
             {
-              admin && (
+              user?.admin && (
                 <Menubar>
                   <MenubarMenu>
                     <MenubarTrigger>
@@ -87,7 +89,7 @@ const Navbar = () => {
                     Please Wait
                   </Button>
                 ) : (
-                  <Button className="bg-orange hover:bg-hoverOrange">Logout</Button>
+                  <Button onClick={logout} className="bg-orange hover:bg-hoverOrange">Logout</Button>
                 )
               }
             </div>
@@ -107,7 +109,8 @@ export default Navbar
 
 
 const MobileNavbar = () => {
-  const user = true;
+  // const user = true;
+  const { user, logout, loading } = useUserStore();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -150,30 +153,45 @@ const MobileNavbar = () => {
             <ShoppingCart />
             <span>Cart (0)</span>
           </Link>
-          <Link to='/admin/menu' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
-            <SquareMenu />
-            <span>Menu</span>
-          </Link>
-          <Link to='/admin/restaurant' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
-            <UtensilsCrossed />
-            <span>Restaurant</span>
-          </Link>
-          <Link to='/admin/orders' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
-            <PackageCheck />
-            <span>Restaurant Orders</span>
-          </Link>
+          {
+            user?.admin && (
+              <>
+                <Link to='/admin/menu' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
+                  <SquareMenu />
+                  <span>Menu</span>
+                </Link>
+                <Link to='/admin/restaurant' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
+                  <UtensilsCrossed />
+                  <span>Restaurant</span>
+                </Link>
+                <Link to='/admin/orders' className="flex items-center gap-4 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-900 font-medium">
+                  <PackageCheck />
+                  <span>Restaurant Orders</span>
+                </Link>
+              </>
+            )
+          }
         </SheetDescription>
         <SheetFooter className="flex flex-col gap-4">
-                <div className="flex flex-row items-center gap-2">
-                  <Avatar>
-                    <AvatarImage />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <h1 className="font-bold ">Madhukar Singh</h1>
-                </div>
-                <SheetClose asChild>
-                  <Button type="submit" className="bg-orange hover:bg-hoverOrange">Logout</Button>
-                </SheetClose>
+          <div className="flex flex-row items-center gap-2">
+            <Avatar>
+              <AvatarImage />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <h1 className="font-bold ">Madhukar Singh</h1>
+          </div>
+          <SheetClose asChild>
+            {
+              loading ? (
+                <Button disabled className="bg-orange hover:bg-hoverOrange">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please Wait
+                </Button>
+              ) : (
+                <Button onClick={logout} className="bg-orange hover:bg-hoverOrange">Logout</Button>
+              )
+            }
+          </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>

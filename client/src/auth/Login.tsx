@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, LockKeyhole, Mail } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginInputState, userLoginSchema } from "@/schema/userSchema";
 import { useUserStore } from "@/store/useUserStore";
 
@@ -30,6 +30,7 @@ const Login = () => {
     password:""
   })
   const[errors,setErrors] = useState<Partial<LoginInputState>>({})
+  const navigate = useNavigate();
 
   // userstore
   const {loading,login} = useUserStore();
@@ -47,7 +48,14 @@ const Login = () => {
       return;
     }
     // console.log(input);
-    await login(input);
+    try{
+      await login(input);
+      navigate("/");
+
+    } catch(error){
+      console.log(error);
+    }
+    
   }
 
   // const loading = false;

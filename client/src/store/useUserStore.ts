@@ -100,12 +100,12 @@ export const useUserStore = create<UserState>()(persist((set) => ({
     checkAuthentication: async () => {
         try{
             set({isCheckingAuth:true});
-            const response = await axios.get(`${API_END_POINT}/check-authentication`);
+            const response = await axios.get(`${API_END_POINT}/check-auth`);
             if(response.data.success){
-                set({loading:false, user:response.data.user, isAuthenticated:true ,isCheckingAuth:false});
+                set({ user:response.data.user, isAuthenticated:true ,isCheckingAuth:false});
             }
         } catch(error:any){
-            set({loading:false, isAuthenticated:false, isCheckingAuth:false});
+            set({ isAuthenticated:false, isCheckingAuth:false});
         }
     },
     // logout api implementation...
