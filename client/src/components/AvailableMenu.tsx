@@ -1,8 +1,9 @@
+import { MenuItem } from "@/types/restaurantType";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter } from "./ui/card"
 import heroImage from "@/assets/hero_pizza.png";
 
-const AvailableMenu = () => {
+const AvailableMenu = ({menus}:{menus:MenuItem}) => {
   return (
     <div className="md:p-4">
         <h1 className="text-xl md:text-2xl font-extrabold mb-6">Available Menus</h1>

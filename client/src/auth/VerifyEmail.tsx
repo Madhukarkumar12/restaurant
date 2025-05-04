@@ -39,8 +39,6 @@ const VerifyEmail = () => {
         } catch (error) {
             console.log(error);
         }
-
-
     }
 
     return (

@@ -7,6 +7,8 @@ import { useState, FormEvent } from "react"
 import Heroimage from "@/assets/hero_pizza.png"
 import EditMenu from "./EditMenu";
 import { MenuFormSchema, menuSchema } from "@/schema/menuSchema";//zod se aaya hai ye.....
+import { useMenuStore } from "@/store/useMenuStore";
+import { useRestaurantStore } from "@/store/useRestaurantStore";
 
 // just for practice concept....
 const menus = [
@@ -32,12 +34,15 @@ const AddMenu = () => {
     image: undefined
   })
   const [error, setError] = useState<Partial<MenuFormSchema>>({});
-  const loading = false;
+  // const loading = false;
   const [open, setOpen] = useState<boolean>(false);
   const [selectedMenu, setselectedMenu] = useState<any>();
   const [editOpen, seteditOpen] = useState<boolean>(false);
+  const{loading, createMenu} = useMenuStore();
 
-  const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const {restaurant} = useRestaurantStore();
+
+  const changeEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     setInput((prev: any) => ({
       ...prev,
@@ -45,13 +50,26 @@ const AddMenu = () => {
     }));
   }
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = menuSchema.safeParse(input);
     if (!result.success) {
       const fieldErrors = result.error.formErrors.fieldErrors;
       setError(fieldErrors as Partial<MenuFormSchema>);
       return;
+    }
+
+    try{
+       const formData = new FormData();
+       formData.append("name", input.name);
+       formData.append("description", input.description);
+       formData.append("price", input.price.toString());
+       if(input.image){
+        formData.append("image", input.image);
+       }
+       await createMenu(formData);
+    }catch(error){
+      console.log(error);
     }
   }
 
@@ -120,7 +138,7 @@ const AddMenu = () => {
                     }))
                   }
                 />
-                {error && <span className="text-xs font-medium text-red-600">{error.image?.name || "Image is required.."}</span>}
+                {error && <span className="text-xs font-medium text-red-600">{error.image?.name }</span>}
               </div>
               <DialogFooter className="mt-5">
                 {
@@ -140,7 +158,7 @@ const AddMenu = () => {
         </Dialog>
       </div>
       {
-        menus.map((menu: any, idx: number) => (
+        restaurant.menus.map((menu: any, idx: number) => (
           <div className="mt-6 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:p-4 p-2 shadow-md rounded-lg ">
               <img

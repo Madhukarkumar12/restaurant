@@ -2,8 +2,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { useRestaurantStore } from "./useRestaurantStore";
 
-const API_END_POINT = "http://localhost:8000/api/v1/menu";
+const API_END_POINT = "http://localhost:3000/api/v1/menu";
 axios.defaults.withCredentials = true;
 
 type MenuState = {
@@ -28,6 +29,8 @@ export const useMenuStore = create<MenuState>()(persist((set) => ({
                 toast.success(response.data.message);
                 set({ loading: false, menu: response.data.menu });
             }
+            // update restaurant
+            useRestaurantStore.getState().addMenuToRestaurant(response.data.menu);
         } catch (error: any) {
             toast.error(error.response.message);
             set({ loading: false });
@@ -45,6 +48,8 @@ export const useMenuStore = create<MenuState>()(persist((set) => ({
                 toast.success(response.data.message);
                 set({ loading: false, menu: response.data.menu })
             }
+            // update restaurant menu
+            useRestaurantStore.getState().updateMenuToRestaurant(response.data.menu);
         } catch (error:any) {
             toast.error(error.response.message);
             set({ loading: false });
@@ -52,5 +57,5 @@ export const useMenuStore = create<MenuState>()(persist((set) => ({
     },
 }), {
     name: "menu-name",
-    storage: createJSONStorage(() => localStorage);
+    storage: createJSONStorage(() => localStorage)
 }))

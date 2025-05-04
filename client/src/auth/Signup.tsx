@@ -36,6 +36,8 @@ const Signup = () => {
   const[errors, setErrors] = useState<Partial<SignupInputState>>({});
   // userstore
   const {signup, loading} = useUserStore();
+  // console.log(signup);
+
   const navigate = useNavigate();
 
   const changeEventHandler = (e:ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +48,7 @@ const Signup = () => {
     e.preventDefault();
     // form validation check start
     const result = userSignupSchema.safeParse(input);
+    console.log(result);
     if(!result.success){
       const fieldErrors = result.error.formErrors.fieldErrors;
       setErrors(fieldErrors as Partial<SignupInputState>);
@@ -136,14 +139,14 @@ const Signup = () => {
           </div>
           <div className="mb-10">
             {
-              loading ? <Button disabled className="w-full bg-orange hover:bg-hoverOrange"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait</Button> :
+              // loading ? <Button disabled className="w-full bg-orange hover:bg-hoverOrange"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait</Button> :
               <Button type="submit" className="w-full bg-orange hover:bg-hoverOrange">Signup</Button>
             }
           </div>
           <Separator/>
           <p className="mt-2">
             Already have an account?{" "}
-            <Link to="/signup" className="text-blue-500">Login</Link>
+            <Link to="/login" className="text-blue-500">Login</Link>
           </p>
           
         </form>

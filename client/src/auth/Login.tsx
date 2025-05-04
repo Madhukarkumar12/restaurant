@@ -99,7 +99,7 @@ const Login = () => {
           </div>
           <div className="mb-10">
             {
-              loading ? <Button disabled className="w-full bg-orange hover:bg-hoverOrange"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait</Button> :
+              // loading ? <Button disabled className="w-full bg-orange hover:bg-hoverOrange"><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait</Button> :
               <Button type="submit" className="w-full bg-orange hover:bg-hoverOrange">Login</Button>
             }
             <div className="mt-4">

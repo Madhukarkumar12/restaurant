@@ -4,7 +4,7 @@ import axios from 'axios'
 import { LoginInputState, SignupInputState } from '@/schema/userSchema';
 import { toast } from 'sonner';
 
-const API_END_POINT = 'http://localhost:8000/api/v1/user';
+const API_END_POINT = 'http://localhost:3000/api/v1/user';
 axios.defaults.withCredentials = true;
 type User = {
     fullname: string;
@@ -101,13 +101,14 @@ export const useUserStore = create<UserState>()(persist((set) => ({
         try{
             set({isCheckingAuth:true});
             const response = await axios.get(`${API_END_POINT}/check-auth`);
+            console.log("Response",response);
             if(response.data.success){
                 set({ user:response.data.user, isAuthenticated:true ,isCheckingAuth:false});
             }
         } catch(error:any){
             set({ isAuthenticated:false, isCheckingAuth:false});
         }
-    },
+    },                                                                                                                                                                                                                              
     // logout api implementation...
     logout: async() => {
         try{
@@ -152,7 +153,7 @@ export const useUserStore = create<UserState>()(persist((set) => ({
     // update user
     updateProfile:async (input:any) => {
         try{
-            set({loading:true});
+            // set({loading:true});
             const response = await axios.put(`${API_END_POINT}/profile/update`, input, {
                 headers:{
                     'Content-Type':'application/json'
@@ -160,11 +161,11 @@ export const useUserStore = create<UserState>()(persist((set) => ({
             })
             if(response.data.success){
                 toast.success(response.data.message);
-                set({loading: false, user:response.data.user, isAuthenticated:true})
+                set({user:response.data.user, isAuthenticated:true})
             }
         } catch(error:any){
             toast.error(error.response.data.message);
-            set({loading:false});
+            // set({loading:false});
         }
     }
 }),
