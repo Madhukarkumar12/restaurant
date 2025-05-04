@@ -13,6 +13,7 @@ import { useUserStore } from "@/store/useUserStore";
 
 const Navbar = () => {
   const { user, loading, logout } = useUserStore();
+  const {cart} = useCartStore();
   // const admin = true; // Replace with actual admin check logic
   // Replace with actual loading state logic
   // const {count, increment} = useCartStore();
@@ -73,11 +74,13 @@ const Navbar = () => {
             </div>
             <Link to='/cart' className="relative cursor-pointer">
               <ShoppingCart />
-              <Button size={'icon'} className="absolute -inset-y-3 left-2 text-xs rounded-full h-4 w-4 bg-red-500 hover:bg-red-500">5</Button>
+              {
+                cart.length > 0 && <Button size={'icon'} className="absolute -inset-y-3 left-2 text-xs rounded-full h-4 w-4 bg-red-500 hover:bg-red-500">{cart.length}</Button>
+              }
             </Link>
             <div>
               <Avatar>
-                <AvatarImage />
+                <AvatarImage src={user?.profilePicture} alt="profilePicture"/>
                 <AvatarFallback>Cn</AvatarFallback>
               </Avatar>
             </div>
@@ -175,7 +178,7 @@ const MobileNavbar = () => {
         <SheetFooter className="flex flex-col gap-4">
           <div className="flex flex-row items-center gap-2">
             <Avatar>
-              <AvatarImage />
+              <AvatarImage src={user?.profilePicture}/>
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <h1 className="font-bold ">Madhukar Singh</h1>
