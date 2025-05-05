@@ -5,11 +5,14 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { useUserStore } from "@/store/useUserStore";
+import { useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
     const {user, updateProfile} = useUserStore();
+    console.log(user);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
     const [profileData, setProfileData] = useState({
         fullname: user?.fullname || "",
         email:  user?.email ||"",
@@ -46,7 +49,9 @@ const Profile = () => {
         try{
             setIsLoading(true);
             await updateProfile(profileData);
+           
             setIsLoading(false);
+            navigate("/");
         } catch(error){
             setIsLoading(false);
         }

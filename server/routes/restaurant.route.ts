@@ -1,7 +1,7 @@
 import express from "express"
-import { createRestaurant, getRestaurant, getRestaurantOrder, getSingleRestaurant, searchRestaurant, updateOrderStatus, updateRestaurant } from "../controller/restaurant.controller";
-import { isAuthenticated } from "../middlewares/isAuthenticated";
-import upload from "../middlewares/multer";
+import { createRestaurant, getRestaurant, getRestaurantOrder, getSingleRestaurant, searchRestaurant, updateOrderStatus, updateRestaurant } from "../controller/restaurant.controller.ts";
+import { isAuthenticated } from "../middlewares/isAuthenticated.ts";
+import upload from "../middlewares/multer.ts";
 
 
 const router = express.Router();

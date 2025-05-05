@@ -3,8 +3,8 @@ import Cors from "cors";
 import connectDB from "./db/connectDB.ts";
 
 import userRoute from "./routes/user.route.ts";
-// import restaurantRoute from "./routes/restaurant.route.ts";
-// import menuRoute from "./routes/menu.route.ts";
+import restaurantRoute from "./routes/restaurant.route.ts";
+import menuRoute from "./routes/menu.route.ts";
 // import orderRoute from "./routes/order.route.ts";
 
 import bodyParser from "body-parser";
@@ -30,8 +30,8 @@ app.use(Cors(corsOptions));
 
 // api
 app.use("/api/v1/user", userRoute);
-// app.use("/api/v1/restaurant", restaurantRoute);
-// app.use("/api/v1/menu", menuRoute);
+app.use("/api/v1/restaurant", restaurantRoute);
+app.use("/api/v1/menu", menuRoute);
 // app.use("/api/v1/order", orderRoute);
 
 // app.get("/",(req,res)=>{

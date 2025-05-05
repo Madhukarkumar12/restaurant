@@ -233,6 +233,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
         const updatedData: any = { fullname, email, address, city, country };
 
         // Optional: Upload profile picture if provided
+        console.log("updated Data:",updatedData);
         if (profilePicture) {
             const cloudResponse = await cloudinary.uploader.upload(profilePicture);
             updatedData.profilePicture = cloudResponse.secure_url;
