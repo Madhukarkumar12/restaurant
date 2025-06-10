@@ -18,8 +18,8 @@ const Restaurant = () => {
   })
 
   const [errors, setErrors] = useState<Partial<RestaurantFormSchema>>({})
-  const { loading, restaurant, updateRestaurant, createRestaurant, getrestaurant } = useRestaurantStore();
-
+  const { loading, restaurant, updateRestaurant, createRestaurant, getRestaurant } = useRestaurantStore();
+  console.log("Restaurant:",restaurant);
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     setInput({ ...input, [name]: type === 'number' ? Number(value) : value })
@@ -54,7 +54,7 @@ const Restaurant = () => {
         await createRestaurant(formData);
       }
       console.log(input);
-      await createRestaurant(input);
+      // await createRestaurant(input);
     } catch (error) {
       console.log(error);
     }
@@ -65,17 +65,18 @@ const Restaurant = () => {
   // const restaurantHai = false;
   useEffect(() => {
     const fetchRestaurant = async () => {
-      await getrestaurant();
+      await getRestaurant();
       setInput({
-        restaurantName: restaurant.restaurantName || "",
-        city: restaurant.city || "",
-        country: restaurant.country || "",
-        deliveryTime: restaurant.deliveryTime || 0,
-        cuisines: restaurant.cuisines ? restaurant.cuisines.map((cuisine: string) => cuisine) : [],
+        restaurantName: restaurant?.restaurantName || "",
+        city: restaurant?.city || "",
+        country: restaurant?.country || "",
+        deliveryTime: restaurant?.deliveryTime || 0,
+        cuisines: restaurant?.cuisines ? restaurant?.cuisines.map((cuisine: string) => cuisine) : [],
         imageFile: undefined,
       })
     };
     fetchRestaurant();
+    console.log("Restaurant:",restaurant);
   }, [])
   return (
     <div className="max-w-6xl mx-auto my-10">

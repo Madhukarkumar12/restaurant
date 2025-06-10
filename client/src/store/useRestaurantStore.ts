@@ -27,7 +27,7 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set) => ({
       })
       if (response.data.success) {
         toast.success(response.data.message);
-        set({ loading: false });
+        set({ loading: false, restaurant:response.data });
       }
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -70,10 +70,12 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set) => ({
     try {
       set({ loading: true });
       const params = new URLSearchParams();
+      console.log(params);
       params.set("searchQuery", searchQuery);
       params.set("selectedCuisines", selectedCuisines.join(","));
+      console.log("afterParams",params);
       // dealy provide karenge thoda sa idhar....
-      await new Promise((resolve)=> setTimeout(resolve, 2000));
+      // await new Promise((resolve)=> setTimeout(resolve, 2000));
       const response = await axios.get(`${API_END_POINT}/search/${searchText}?${params.toString()}`);
       if (response.data.success) {
         console.log(response.data);
@@ -107,6 +109,7 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set) => ({
   setAppliedFilter:(value:string) => {
      set((state) => {
       const isAlreadyApplied = state.appliedFilter.includes(value);
+      console.log(isAlreadyApplied);
       const updatedFilter = isAlreadyApplied ? state.appliedFilter.filter((item) => item !== value) : [...state.appliedFilter, value];
       return {appliedFilter:updatedFilter};
      })

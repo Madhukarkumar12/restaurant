@@ -14,6 +14,7 @@ import { Restaurant } from "@/types/restaurantType";
 
 const SearchPage = () => {
   const params = useParams();
+  console.log(params);
   // alert(params.text);
   const [searchquery, setSearchQuery] = useState<string>("");
   const { loading, searchedRestaurant, searchRestaurant, setAppliedFilter,appliedFilter } = useRestaurantStore();

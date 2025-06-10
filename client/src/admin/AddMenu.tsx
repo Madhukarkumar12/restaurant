@@ -11,20 +11,20 @@ import { useMenuStore } from "@/store/useMenuStore";
 import { useRestaurantStore } from "@/store/useRestaurantStore";
 
 // just for practice concept....
-const menus = [
-  {
-    name: "Biryani",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    price: 80,
-    image: Heroimage
-  },
-  {
-    name: "Biryani",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    price: 80,
-    image: Heroimage
-  }
-]
+// const menus = [
+//   {
+//     name: "Biryani",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+//     price: 80,
+//     image: Heroimage
+//   },
+//   {
+//     name: "Biryani",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+//     price: 80,
+//     image: Heroimage
+//   }
+// ]
 
 const AddMenu = () => {
   const [input, setInput] = useState<MenuFormSchema>({
@@ -41,6 +41,7 @@ const AddMenu = () => {
   const{loading, createMenu} = useMenuStore();
 
   const {restaurant} = useRestaurantStore();
+  console.log(restaurant);
 
   const changeEventHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
@@ -67,6 +68,7 @@ const AddMenu = () => {
        if(input.image){
         formData.append("image", input.image);
        }
+      //  console.log(formData);
        await createMenu(formData);
     }catch(error){
       console.log(error);
@@ -158,12 +160,12 @@ const AddMenu = () => {
         </Dialog>
       </div>
       {
-        restaurant.menus.map((menu: any, idx: number) => (
+        restaurant?.menus.map((menu: any, idx: number) => (
           <div className="mt-6 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:p-4 p-2 shadow-md rounded-lg ">
               <img
                 src={menu.image}
-                alt=""
+                alt="menu"
                 className="md:h-24 md:w-24 h-16 w-full object-cover rounded-lg"
               />
               <div className="flex-1">

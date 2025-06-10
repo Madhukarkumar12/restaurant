@@ -1,5 +1,5 @@
 export type CheckoutSessionRequest = {
-    cartItem:{
+    cartItems:{
         menuId:string;
         name:string;
         image:string;

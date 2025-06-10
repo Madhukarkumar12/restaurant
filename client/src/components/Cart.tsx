@@ -12,6 +12,7 @@ import { CartItem } from "@/types/cartType"
 const Cart = () => {
     const [open, setOpen] = useState<boolean>(false);
     const { cart, decrementQuantity, incrementQuantity } = useCartStore();
+    console.log("Cart:",cart);
 
     let totalAmount = cart.reduce((acc, ele) => {
         return acc + ele.price * ele.quantity;

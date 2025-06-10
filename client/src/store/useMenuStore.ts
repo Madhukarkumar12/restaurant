@@ -25,6 +25,7 @@ export const useMenuStore = create<MenuState>()(persist((set) => ({
                     'Content-Type': 'multipart/form-data'
                 }
             })
+            
             if (response.data.success) {
                 toast.success(response.data.message);
                 set({ loading: false, menu: response.data.menu });
@@ -39,7 +40,7 @@ export const useMenuStore = create<MenuState>()(persist((set) => ({
     editMenu: async (menuId: string, formData: FormData) => {
         try {
             set({ loading: true });
-            const response = await axios.put(`${API_END_POINT}/${menuId}`, FormData, {
+            const response = await axios.put(`${API_END_POINT}/${menuId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

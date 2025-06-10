@@ -2,28 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 // import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, LockKeyhole, Mail, Phone, User } from "lucide-react";
+import { Loader2, LockKeyhole, Mail, Phone, Shield, User, UserCog } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignupInputState, userSignupSchema } from "@/schema/userSchema";
 import { useUserStore } from "@/store/useUserStore";
 
-// typescript mein type define karne 
-// interface SignupInputState {
-//   fullname:string;
-//   email:string;
-//   password:string;
-//   contact:string;
-// }
-
-// interface LoginInputWithAge extends LoginInputState {
-//   age:string;
-// }
-
-// type LoginInputState2 = {
-//   email:string;
-//   password:string;
-// }
 
 const Signup = () => {
 
@@ -31,7 +15,8 @@ const Signup = () => {
     fullname:"",
     email:"",
     password:"",
-    contact:""
+    contact:"",
+    role:"",
   })
   const[errors, setErrors] = useState<Partial<SignupInputState>>({});
   // userstore
@@ -134,6 +119,22 @@ const Signup = () => {
                 <Phone className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none"/>
                 {
                   errors && <span className="text-sm text-red-500">{errors.contact}</span>
+                }
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="relative">
+                <Input
+                  type="text"
+                  placeholder="Role Specify"
+                  name="role"
+                  value={input.role}
+                  onChange={changeEventHandler}
+                  className="pl-10 focus-visible:ring-0"
+                />
+                <UserCog className="absolute inset-y-2 left-2 text-gray-500 pointer-events-none"/>
+                {
+                  errors && <span className="text-sm text-red-500">{errors.role}</span>
                 }
             </div>
           </div>

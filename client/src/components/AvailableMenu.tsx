@@ -13,7 +13,7 @@ const AvailableMenu = ({ menus }: { menus: MenuItem[] }) => {
             <h1 className="text-xl md:text-2xl font-extrabold mb-6">Available Menus</h1>
             <div className="grid md:grid-cols-3 space-y-4 md:space-y-0">
                 {
-                    menus.map((menu) => (
+                    menus?.map((menu) => (
                         <Card className="md:max-w-xs mx-auto shadow-lg rounded-lg overflow:hidden">
                             <img src={heroImage} alt="image" className="w-full h-40 object-cover" />
                             <CardContent className="p-4">

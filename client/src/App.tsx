@@ -47,9 +47,9 @@ const AdminRoute = ({children}:{children:React.ReactNode}) => {
   if(!isAuthenticated){
     return <Navigate to='/login' replace/>
   }
-  if(user?.admin){
-    return <Navigate to='/' replace/>
-  }
+  // if(user?.admin){
+  //   return <Navigate to='/' replace/>
+  // }
   return children;
 }
 

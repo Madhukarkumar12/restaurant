@@ -8,7 +8,7 @@ import { Loader2 } from "lucide-react"
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react"
 
 
-const EditMenu = ({ selectedMenu, editOpen, setEditOpen }: { selectedMenu: MenuFormSchema, editOpen: boolean, setEditOpen: Dispatch<SetStateAction<boolean>> }) => {
+const EditMenu = ({ selectedMenu, editOpen, setEditOpen }: { selectedMenu: MenuFormSchema & { _id: string }, editOpen: boolean, setEditOpen: Dispatch<SetStateAction<boolean>> }) => {
   const [input, setInput] = useState<MenuFormSchema>({
       name:"",
       description:"",
@@ -40,6 +40,7 @@ const EditMenu = ({ selectedMenu, editOpen, setEditOpen }: { selectedMenu: MenuF
         if(input.image){
          formData.append("image", input.image);
         }
+        console.log("FormData:",formData);
         await editMenu(selectedMenu._id, formData);
      }catch(error){
        console.log(error);
@@ -110,7 +111,8 @@ const EditMenu = ({ selectedMenu, editOpen, setEditOpen }: { selectedMenu: MenuF
                 }))
               }
             />
-            {error && <span className="text-xs font-medium text-red-600">{error.image?.name || "Image is required.."}</span>}
+            {error && <span className="text-xs font-medium text-red-600">{error.image && error.image.name ? error.image.name : "Image is required.."}
+            </span>}
           </div>
           <DialogFooter className="mt-5">
             {
