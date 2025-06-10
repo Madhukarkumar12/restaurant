@@ -9,7 +9,7 @@ import { sendPasswordResetEmail, sendResetSuccessEmail, sendVerificationEmail, s
 
 export const signup = async (req: Request, res: Response):Promise<void> => {
     try {
-        const { fullname, email, password, contact } = req.body;
+        const { fullname, email, password, contact, role } = req.body;
 
         let user = await User.findOne({ email });
         if (user) {
@@ -22,6 +22,11 @@ export const signup = async (req: Request, res: Response):Promise<void> => {
         const verificationToken =  generateVerificationCode();
         console.log(verificationToken);
 
+        let yes = false;
+        if(role==="admin"){
+             yes = true;
+        }
+
         user = await User.create({
             fullname,
             email,
@@ -29,6 +34,7 @@ export const signup = async (req: Request, res: Response):Promise<void> => {
             contact: Number(contact),
             verificationToken,
             verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
+            admin:yes
         })
         generateToken(res,user);
 

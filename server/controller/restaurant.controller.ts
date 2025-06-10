@@ -9,12 +9,13 @@ export const createRestaurant = async (req: Request, res: Response):Promise<void
          const { restaurantName, city, country, price, deliveryTime, cuisines} = req.body;
          const file = req.file;
          const restaurant = await Restaurant.findOne({user:req.id});
+         console.log(restaurant);
          if (restaurant) {
              res.status(400).json({
                 success: false,
                 message: "Restaurant already exist for this user"
             })
-            
+            return;
         }
         if (!file) {
              res.status(400).json({
@@ -24,6 +25,7 @@ export const createRestaurant = async (req: Request, res: Response):Promise<void
         }
 
         const imageUrl = await uploadImageOnCloudinary(file as Express.Multer.File);
+        console.log("ImageUrl:",imageUrl);
         await Restaurant.create({
             user: req.id,
             restaurantName,

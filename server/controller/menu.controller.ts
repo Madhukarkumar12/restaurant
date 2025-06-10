@@ -44,6 +44,7 @@ export const addMenu = async (req: Request, res: Response):Promise<void> => {
 export const editMenu = async (req: Request, res: Response):Promise<void> => {
     try{
        const {id} = req.params;
+       console.log("ID:",id);
        const {name, description, price} = req.body;
        const file = req.file;
        const menu = await Menu.findById(id);
